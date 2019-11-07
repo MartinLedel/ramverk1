@@ -23,9 +23,9 @@ class JSONController implements ContainerInjectableInterface
     use ContainerInjectableTrait;
 
     /**
-    * @var string $db a sample member variable that gets initialised
-    */
-    //private $db = "not active";
+     * JSON form
+     *
+     */
     public function indexAction() : object
     {
         $page = $this->di->get("page");
@@ -38,7 +38,7 @@ class JSONController implements ContainerInjectableInterface
         ]);
     }
     /**
-     * Route for form POST
+     * JSON API
      *
      */
     public function validateActionGet() : array

@@ -46,28 +46,28 @@ class RegularControllerTest extends TestCase
         $response = $di->get("response");
         // Test the controller action
         $request->setGet("ipValidate", "1.160.10.240");
-        $request->setGet("ipV4", "ipV4");
+        $request->setGet("ipVersion", "ipV4");
         $res = $controller->validateActionGet();
         $response->redirectSelf();
         $this->assertInstanceOf("Anax\Response\Response", $res);
         $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
 
         $request->setGet("ipValidate", "1.160.10");
-        $request->setGet("ipV4", "ipV4");
+        $request->setGet("ipVersion", "ipV4");
         $res = $controller->validateActionGet();
         $response->redirectSelf();
         $this->assertInstanceOf("Anax\Response\Response", $res);
         $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
 
         $request->setGet("ipValidate", "2001:0db8:85a3:0000:0000:8a2e:0370:7334");
-        $request->setGet("ipV6", "ipV6");
+        $request->setGet("ipVersion", "ipV6");
         $res = $controller->validateActionGet();
         $response->redirectSelf();
         $this->assertInstanceOf("Anax\Response\Response", $res);
         $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
 
         $request->setGet("ipValidate", "2001:0db8:85a3:0000:0000:");
-        $request->setGet("ipV6", "ipV6");
+        $request->setGet("ipVersion", "ipV6");
         $res = $controller->validateActionGet();
         $response->redirectSelf();
         $this->assertInstanceOf("Anax\Response\Response", $res);
