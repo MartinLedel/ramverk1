@@ -14,7 +14,7 @@ return [
         "data" => [
             "baseTitle" => " | ramverk1",
             "bodyClass" => null,
-            "favicon" => "favicon.ico",
+            "favicon" => "phplogo.ico",
             "htmlClass" => null,
             "lang" => "sv",
             "stylesheets" => [
@@ -33,8 +33,8 @@ return [
             "template" => "anax/v2/header/site_logo",
             "data" => [
                 "class" => "large",
-                "siteLogo"      => "image/theme/leaf_256x256.png",
-                "siteLogoAlt"   => "Löv",
+                "siteLogo"      => "image/theme/phplogo256x256.png",
+                "siteLogoAlt"   => "PHP",
             ],
         ],
         [
@@ -43,8 +43,8 @@ return [
             "data" => [
                 "homeLink"      => "",
                 "siteLogoText"  => "ramverk1",
-                "siteLogoTextIcon" => "image/theme/leaf_40x40.png",
-                "siteLogoTextIconAlt" => "Löv-bild",
+                "siteLogoTextIcon" => "image/theme/phplogo40x40.png",
+                "siteLogoTextIconAlt" => "PHP",
             ],
         ],
         [

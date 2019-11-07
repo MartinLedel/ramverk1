@@ -1,22 +1,6 @@
 ###Guide till IP Valideringen för JSON API
 
-APIet tar emot två argument:
-
-```
-ipValidate
-```
-
-och
-
-```
-ipV4
-```
-
-eller
-
-```
-ipV6
-```
+APIet tar emot två argument: `ipValidate` och `ipV4` eller `ipV6`.
 
 För att testa en adress skriver du in:
 
@@ -34,22 +18,6 @@ Tillbaka ska du få ett objekt:
 }
 ```
 
-Objektet innehåller
+Objektet innehåller `hostName` som kommer visa domän namnet om adressen validerade,
 
-```
-hostName
-```
-
-som kommer innehålla domän namnet om adressen validerade.
-
-```
-ipValidate
-```
-
-som har visar ip adressen du testade och
-
-```
-message
-```
-
-som visar ifall adressen validerade.
+`ipValidate` som visar ip adressen du testade och `message` som visar ifall adressen validerade.

@@ -1,3 +1,11 @@
-#### Footer col 1
+#### BTH kontakt info
 
-Med brödtext i ett stycke som säger något trevligt om just detta block, eller kanske en lista av länkar.
+Blekinge Tekniska Högskola
+
+SE-371 79 Karlskrona
+
+Valhallavägen 1
+
+Telefon: 0455 – 38 50 00
+
+Email: info@bth.se

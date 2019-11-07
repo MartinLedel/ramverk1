@@ -1,1 +1,1 @@
-Copyright år och ditt namn samt diverse länkar som du finner relevanta.
+&copy; 2019 Martin Ledel Användbara länkar: [Google](https://www.google.se/), [dbwebb YouTube](https://www.youtube.com/channel/UCxX3bcidovf5MDLeXMcbDyg)
