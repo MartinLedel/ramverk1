@@ -43,7 +43,7 @@ return [
             "data" => [
                 "homeLink"      => "",
                 "siteLogoText"  => "ramverk1",
-                "siteLogoTextIcon" => "image/theme/phplogo40x40.png",
+                "siteLogoTextIcon" => "image/theme/phplogo64x64.png",
                 "siteLogoTextIconAlt" => "PHP",
             ],
         ],
