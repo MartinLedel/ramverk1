@@ -46,7 +46,7 @@ class JSONController implements ContainerInjectableInterface
         $ip = $this->di->request->getGet("ipValidate");
         $json = [];
 
-        if ($this->di->request->getGet("ipV4")) {
+        if ($this->di->request->getGet("ipVersion") == "ipV4") {
             if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
                 $hostname = gethostbyaddr($ip);
                 if ($hostname) {
@@ -58,9 +58,7 @@ class JSONController implements ContainerInjectableInterface
                 $json["ipValidate"] = $ip;
                 $json["message"] = "Did not validate.";
             }
-        }
-
-        if ($this->di->request->getGet("ipV6")) {
+        } elseif ($this->di->request->getGet("ipVersion") == "ipV6") {
             if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
                 $hostname = gethostbyaddr($ip);
                 if ($hostname) {

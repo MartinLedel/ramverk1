@@ -55,7 +55,7 @@ class RegularController implements ContainerInjectableInterface
         $session = $this->di->get("session");
         $ip = $this->di->request->getGet("ipValidate");
 
-        if ($this->di->request->getGet("ipV4")) {
+        if ($this->di->request->getGet("ipVersion") == "ipV4") {
             if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
                 $hostname = gethostbyaddr($ip);
                 if ($hostname) {
@@ -65,9 +65,7 @@ class RegularController implements ContainerInjectableInterface
             } else {
                 $session->set("notValid", $ip);
             }
-        }
-
-        if ($this->di->request->getGet("ipV6")) {
+        } elseif ($this->di->request->getGet("ipVersion") == "ipV6") {
             if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
                 $hostname = gethostbyaddr($ip);
                 if ($hostname) {

@@ -1,11 +1,11 @@
 ###Guide till IP Valideringen för JSON API
 
-APIet tar emot två argument: `ipValidate` och `ipV4` eller `ipV6`.
+APIet tar emot två argument: `ipValidate` och `ipVersion`.
 
 För att testa en adress skriver du in:
 
 ```
-json2/validate?ipValidate=194.47.150.9&ipV4
+json2/validate?ipValidate=194.47.150.9&ipVersion=ipV4
 ```
 
 Tillbaka ska du få ett objekt:
