@@ -6,7 +6,7 @@ return [
     // Use for styling the menu
     "wrapper" => null,
     "class" => "my-navbar rm-default rm-desktop",
- 
+
     // Here comes the menu items
     "items" => [
         [
@@ -47,6 +47,25 @@ return [
             "text" => "Verktyg",
             "url" => "verktyg",
             "title" => "Verktyg och möjligheter för utveckling.",
+        ],
+        [
+            "text" => "IP validering",
+            "url" => "validator",
+            "title" => "Validera IP adresser.",
+            "submenu" => [
+                "items" => [
+                    [
+                        "text" => "Vanligt svar",
+                        "url" => "regular",
+                        "title" => "Validera IP adresser, svaret blir vanligt.",
+                    ],
+                    [
+                        "text" => "JSON svar",
+                        "url" => "json2",
+                        "title" => "Validera IP adresser, svaret blir i JSON.",
+                    ],
+                ],
+            ],
         ],
     ],
 ];
