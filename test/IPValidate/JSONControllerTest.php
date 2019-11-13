@@ -44,28 +44,64 @@ class JSONControllerTest extends TestCase
         $controller->setDI($di);
         $request = $di->get("request");
         // Test the controller action
-        $request->setGet("ipValidate", "1.160.10.240");
-        $request->setGet("ipVersion", "ipV4");
+        $request->setGet("ip", "1.160.10.240");
+        $request->setGet("kmom", "01");
         $res = $controller->validateActionGet();
         $this->assertIsArray($res);
-        $this->assertArrayHasKey("message", $res[0]);
+        $this->assertArrayHasKey("ip", $res[0]);
 
-        $request->setGet("ipValidate", "1.160.10.");
-        $request->setGet("ipVersion", "ipV4");
+        $request->setGet("ip", "1.160.10.");
+        $request->setGet("kmom", "01");
         $res = $controller->validateActionGet();
         $this->assertIsArray($res);
-        $this->assertArrayHasKey("message", $res[0]);
+        $this->assertArrayHasKey("ip", $res[0]);
 
-        $request->setGet("ipValidate", "2001:0db8:85a3:0000:0000:8a2e:0370:7334");
-        $request->setGet("ipVersion", "ipV6");
+        $request->setGet("ip", "2001:0db8:85a3:0000:0000:8a2e:0370:7334");
+        $request->setGet("kmom", "01");
         $res = $controller->validateActionGet();
         $this->assertIsArray($res);
-        $this->assertArrayHasKey("message", $res[0]);
+        $this->assertArrayHasKey("ip", $res[0]);
 
-        $request->setGet("ipValidate", "2001:0db8:85a3:0000:0000:");
-        $request->setGet("ipVersion", "ipV6");
+        $request->setGet("ip", "2001:0db8:85a3:0000:0000:");
+        $request->setGet("kmom", "01");
         $res = $controller->validateActionGet();
         $this->assertIsArray($res);
-        $this->assertArrayHasKey("message", $res[0]);
+        $this->assertArrayHasKey("ip", $res[0]);
+    }
+
+    public function test2ValidateActionGet()
+    {
+        global $di;
+        // Setup di
+        $di = new DIFactoryConfig();
+        $di->loadServices(ANAX_INSTALL_PATH . "/config/di");
+        // Use a different cache dir for unit test
+        $di->get("cache")->setPath(ANAX_INSTALL_PATH . "/test/cache");
+        // Setup the controller
+        $controller = new JSONController();
+        $controller->setDI($di);
+        $request = $di->get("request");
+        // Test the controller action
+        $request->setGet("ip", "1.160.10.240");
+        $request->setGet("kmom", "02");
+        $res = $controller->validateActionGet();
+        $this->assertIsArray($res);
+        $this->assertArrayHasKey("city", $res[0]);
+
+        $request->setGet("ip", "1.160.10.");
+        $request->setGet("kmom", "02");
+        $res = $controller->validateActionGet();
+        $this->assertIsArray($res);
+
+        $request->setGet("ip", "2001:0db8:85a3:0000:0000:8a2e:0370:7334");
+        $request->setGet("kmom", "02");
+        $res = $controller->validateActionGet();
+        $this->assertIsArray($res);
+        $this->assertArrayHasKey("city", $res[0]);
+
+        $request->setGet("ip", "2001:0db8:85a3:0000:0000:");
+        $request->setGet("kmom", "02");
+        $res = $controller->validateActionGet();
+        $this->assertIsArray($res);
     }
 }

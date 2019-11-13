@@ -30,8 +30,12 @@ class JSONController implements ContainerInjectableInterface
     {
         $page = $this->di->get("page");
         $title = "Validera IP";
+        $userIP = gethostbyname(gethostname());
+        $data = [
+        "userIP" => $userIP,
+        ];
 
-        $page->add("ipvalidate/json");
+        $page->add("ipvalidate/json", $data);
 
         return $page->render([
          "title" => $title,
@@ -43,33 +47,18 @@ class JSONController implements ContainerInjectableInterface
      */
     public function validateActionGet() : array
     {
-        $ip = $this->di->request->getGet("ipValidate");
-        $json = [];
+        $session = $this->di->get("session");
+        $request = $this->di->get("request");
+        $response = $this->di->get("response");
+        $kmom01model = new kmom01Model();
+        $kmom02model = new kmom02Model();
 
-        if ($this->di->request->getGet("ipVersion") == "ipV4") {
-            if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-                $hostname = gethostbyaddr($ip);
-                if ($hostname) {
-                    $json["hostName"] = $hostname;
-                }
-                $json["ipValidate"] = $ip;
-                $json["message"] = "Validated.";
-            } else {
-                $json["ipValidate"] = $ip;
-                $json["message"] = "Did not validate.";
-            }
-        } elseif ($this->di->request->getGet("ipVersion") == "ipV6") {
-            if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
-                $hostname = gethostbyaddr($ip);
-                if ($hostname) {
-                    $json["hostName"] = $hostname;
-                }
-                $json["ipValidate"] = $ip;
-                $json["message"] = "Validated.";
-            } else {
-                $json["ipValidate"] = $ip;
-                $json["message"] = "Did not validate.";
-            }
+        $ip = $request->getGet("ip");
+
+        if ($request->getGet("kmom") == "01") {
+            $json = $kmom01model->jsonValidateKmom01($ip);
+        } elseif ($request->getGet("kmom") == "02") {
+            $json = $kmom02model->getDataKmom02($ip);
         }
 
         return [$json];

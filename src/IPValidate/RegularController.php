@@ -27,18 +27,19 @@ class RegularController implements ContainerInjectableInterface
      */
     public function indexAction() : object
     {
+        $request = $this->di->get("request");
         $page = $this->di->get("page");
         $session = $this->di->get("session");
         $title = "Validera IP";
+        $userIP = gethostbyname(gethostname());
         $data = [
-        "isValid" => $session->get("isValid"),
-        "notValid" => $session->get("notValid"),
-        "hostName" => $session->get("hostName"),
+        "userIP" => $userIP,
+        "validatedText" => $session->get("validatedText"),
+        "jsonData" => $session->get("jsonData"),
         ];
 
-        $session->set("isValid", null);
-        $session->set("notValid", null);
-        $session->set("hostName", null);
+        $session->set("validatedText", null);
+        $session->set("jsonData", null);
 
         $page->add("ipvalidate/regular", $data);
 
@@ -53,30 +54,21 @@ class RegularController implements ContainerInjectableInterface
     public function validateActionGet() : object
     {
         $session = $this->di->get("session");
-        $ip = $this->di->request->getGet("ipValidate");
+        $request = $this->di->get("request");
+        $response = $this->di->get("response");
+        $kmom01model = new kmom01Model();
+        $kmom02model = new kmom02Model();
 
-        if ($this->di->request->getGet("ipVersion") == "ipV4") {
-            if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-                $hostname = gethostbyaddr($ip);
-                if ($hostname) {
-                    $session->set("hostName", $hostname);
-                }
-                $session->set("isValid", $ip);
-            } else {
-                $session->set("notValid", $ip);
-            }
-        } elseif ($this->di->request->getGet("ipVersion") == "ipV6") {
-            if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
-                $hostname = gethostbyaddr($ip);
-                if ($hostname) {
-                    $session->set("hostName", $hostname);
-                }
-                $session->set("isValid", $ip);
-            } else {
-                $session->set("notValid", $ip);
-            }
+        $ip = $request->getGet("ip");
+
+        if ($request->getGet("kmom") == "01") {
+            $validatedText = $kmom01model->regularValidateKmom01($ip);
+            $session->set("validatedText", $validatedText);
+        } elseif ($request->getGet("kmom") == "02") {
+            $json = $kmom02model->getDataKmom02($ip);
+            $session->set("jsonData", $json);
         }
 
-        return $this->di->response->redirect("regular");
+        return $response->redirect("regular");
     }
 }
