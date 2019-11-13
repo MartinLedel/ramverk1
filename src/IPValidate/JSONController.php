@@ -30,7 +30,7 @@ class JSONController implements ContainerInjectableInterface
     {
         $page = $this->di->get("page");
         $title = "Validera IP";
-        $userIP = gethostbyname(gethostname());
+        $userIP = file_get_contents("http://ipecho.net/plain");
         $data = [
         "userIP" => $userIP,
         ];

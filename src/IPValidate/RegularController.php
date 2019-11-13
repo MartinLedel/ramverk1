@@ -31,7 +31,7 @@ class RegularController implements ContainerInjectableInterface
         $page = $this->di->get("page");
         $session = $this->di->get("session");
         $title = "Validera IP";
-        $userIP = gethostbyname(gethostname());
+        $userIP = file_get_contents("http://ipecho.net/plain");
         $data = [
         "userIP" => $userIP,
         "validatedText" => $session->get("validatedText"),

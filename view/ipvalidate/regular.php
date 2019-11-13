@@ -39,26 +39,54 @@ namespace Anax\View;
     <b><?= $validatedText ?></b>
 </p>
 <?php elseif (isset($jsonData)) : ?>
+<link rel="stylesheet" href="../view/ipvalidate/leaflet.css">
 <p>
     <table>
         <tr class="first">
             <th>IP</th>
+            <th>Domän</th>
             <th>IpV</th>
             <th>Land</th>
             <th>Stad</th>
             <th>Latitude</th>
             <th>Longitude</th>
-            <th>Flagga</th>
         </tr>
         <tr>
-            <td><?= $jsonData["ip"] ?></td>
+            <td id="ip"><?= $jsonData["ip"] ?></td>
+            <td><?= $jsonData["hostname"] ?></td>
             <td><?= $jsonData["type"] ?></td>
-            <td><?= $jsonData["country_code"] ?></td>
+            <td><?= $jsonData["country_name"] ?></td>
             <td><?= $jsonData["city"] ?></td>
-            <td><?= $jsonData["latitude"] ?></td>
-            <td><?= $jsonData["longitude"] ?></td>
-            <td><img src="<?= $jsonData["location"]["country_flag"] ?>"></td>
+            <td id="lat"><?= $jsonData["latitude"] ?></td>
+            <td id="lng"><?= $jsonData["longitude"] ?></td>
         </tr>
     </table>
 </p>
+<div id="map" style="width: 800px; height: 450px;"></div>
+<script src="../view/ipvalidate/leaflet.js"></script>
+<script type="text/javascript">
+    var latPos = document.getElementById('lat').innerText;
+    var lngPos = document.getElementById('lng').innerText;
+    var ipAdress = document.getElementById('ip').innerText;
+    var locationMarker = L.icon({
+        iconUrl: 'img/location.png',
+
+        iconSize:     [24, 24],
+        iconAnchor:   [12, 12],
+        popupAnchor:  [0, 0]
+    });
+    setTimeout(() => {
+        if (latPos && lngPos) {
+            var map = new L.Map('map');
+            var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                osmAttrib = 'Map data &copy; 2018 OpenStreetMap contributors',
+                osm = new L.TileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
+            L.marker(
+                [latPos, lngPos],
+                {icon: locationMarker}
+            ).addTo(map).bindPopup("IP: " + ipAdress);
+            map.setView(new L.LatLng(latPos, lngPos), 13).addLayer(osm);
+    }
+  }, 500);
+</script>
 <?php endif; ?>

@@ -25,6 +25,7 @@ class kmom02Model
 
         // Decode JSON response:
         $api_result = json_decode($json, true);
+        $api_result["show_map"] = "https://www.openstreetmap.org/#map=13/{$api_result['latitude']}/{$api_result['longitude']}";
 
         return $api_result;
     }
@@ -34,9 +35,13 @@ class kmom02Model
         $json = null;
 
         if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+            $hostname = gethostbyaddr($ip);
             $json = $this->cURLCall($ip);
+            $json["hostname"] = $hostname;
         } elseif (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+            $hostname = gethostbyaddr($ip);
             $json = $this->cURLCall($ip);
+            $json["hostname"] = $hostname;
         }
 
         return $json;
