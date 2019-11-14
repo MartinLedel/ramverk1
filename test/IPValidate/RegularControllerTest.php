@@ -23,6 +23,7 @@ class RegularControllerTest extends TestCase
         // Setup the controller
         $controller = new RegularController();
         $controller->setDI($di);
+        $controller->initialize();
         // Test the controller action
         $res = $controller->IndexAction();
         $this->assertInstanceOf("Anax\Response\Response", $res);
@@ -42,6 +43,7 @@ class RegularControllerTest extends TestCase
         // Setup the controller
         $controller = new RegularController();
         $controller->setDI($di);
+        $controller->initialize();
         $request = $di->get("request");
         // Test the controller action
         $request->setGet("ip", "1.160.10.240");
@@ -80,6 +82,7 @@ class RegularControllerTest extends TestCase
         // Setup the controller
         $controller = new RegularController();
         $controller->setDI($di);
+        $controller->initialize();
         $request = $di->get("request");
         // Test the controller action
         $request->setGet("ip", "1.160.10.240");

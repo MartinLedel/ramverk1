@@ -22,6 +22,14 @@ class JSONController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
+    public $kmom01model;
+    public $kmom02model;
+
+    public function initialize()
+    {
+        $this->kmom01model = new kmom01Model();
+        $this->kmom02model = new kmom02Model();
+    }
     /**
      * JSON form
      *
@@ -50,15 +58,13 @@ class JSONController implements ContainerInjectableInterface
         $session = $this->di->get("session");
         $request = $this->di->get("request");
         $response = $this->di->get("response");
-        $kmom01model = new kmom01Model();
-        $kmom02model = new kmom02Model();
 
         $ip = $request->getGet("ip");
 
         if ($request->getGet("kmom") == "01") {
-            $json = $kmom01model->jsonValidateKmom01($ip);
+            $json = $this->kmom01model->jsonValidateKmom01($ip);
         } elseif ($request->getGet("kmom") == "02") {
-            $json = $kmom02model->getDataKmom02($ip);
+            $json = $this->kmom02model->getDataKmom02($ip);
         }
 
         return [$json];

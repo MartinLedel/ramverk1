@@ -63,6 +63,8 @@ Tillbaka ska du få ett objekt:
         "country_flag_emoji_unicode": "U+1F1FA U+1F1F8",
         "calling_code": "1",
         "is_eu": false
-    }
+    },
+    "show_map": "https://www.openstreetmap.org/#map=13/37.419158935547/-122.07540893555",
+    "hostname": "dns.google"
 }
 ```

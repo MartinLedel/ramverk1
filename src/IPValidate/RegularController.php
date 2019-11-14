@@ -21,6 +21,15 @@ use Anax\Commons\ContainerInjectableTrait;
 class RegularController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
+
+    public $kmom01model;
+    public $kmom02model;
+
+    public function initialize()
+    {
+        $this->kmom01model = new kmom01Model();
+        $this->kmom02model = new kmom02Model();
+    }
     /**
      * Route for index view and form
      *
@@ -56,16 +65,14 @@ class RegularController implements ContainerInjectableInterface
         $session = $this->di->get("session");
         $request = $this->di->get("request");
         $response = $this->di->get("response");
-        $kmom01model = new kmom01Model();
-        $kmom02model = new kmom02Model();
 
         $ip = $request->getGet("ip");
 
         if ($request->getGet("kmom") == "01") {
-            $validatedText = $kmom01model->regularValidateKmom01($ip);
+            $validatedText = $this->kmom01model->regularValidateKmom01($ip);
             $session->set("validatedText", $validatedText);
         } elseif ($request->getGet("kmom") == "02") {
-            $json = $kmom02model->getDataKmom02($ip);
+            $json = $this->kmom02model->getDataKmom02($ip);
             $session->set("jsonData", $json);
         }
 
