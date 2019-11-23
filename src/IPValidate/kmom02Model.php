@@ -9,14 +9,20 @@ namespace Anax\IPValidate;
  */
 class kmom02Model
 {
+    protected $api_key;
+
+    public function __construct()
+    {
+        $api_keys = require ANAX_INSTALL_PATH . "/config/api_keys.php";
+        $this->api_key = $api_keys["ipstacks"];
+    }
+
     public function cURLCall($ip)
     {
-        $api_key = file_get_contents(ANAX_INSTALL_PATH . "/config/apikey.txt");
-        $api_key = trim($api_key);
         $json = [];
 
         // Initialize CURL:
-        $ch = curl_init('http://api.ipstack.com/'. $ip . '?access_key=' . $api_key . '');
+        $ch = curl_init('http://api.ipstack.com/'. $ip . '?access_key=' . $this->api_key . '');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         // Store the data:

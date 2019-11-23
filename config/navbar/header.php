@@ -30,6 +30,31 @@ return [
                         "url" => "redovisning/kmom02",
                         "title" => "Redovisning för kmom02.",
                     ],
+                    [
+                        "text" => "Kmom03",
+                        "url" => "redovisning/kmom03",
+                        "title" => "Redovisning för kmom03.",
+                    ],
+                    [
+                        "text" => "Kmom04",
+                        "url" => "redovisning/kmom04",
+                        "title" => "Redovisning för kmom04.",
+                    ],
+                    [
+                        "text" => "Kmom05",
+                        "url" => "redovisning/kmom05",
+                        "title" => "Redovisning för kmom05.",
+                    ],
+                    [
+                        "text" => "Kmom06",
+                        "url" => "redovisning/kmom06",
+                        "title" => "Redovisning för kmom06.",
+                    ],
+                    [
+                        "text" => "Kmom10",
+                        "url" => "redovisning/kmom10",
+                        "title" => "Redovisning för kmom10.",
+                    ],
                 ],
             ],
         ],
@@ -63,6 +88,25 @@ return [
                         "text" => "JSON svar",
                         "url" => "json2",
                         "title" => "Validera IP adresser, svaret blir i JSON.",
+                    ],
+                ],
+            ],
+        ],
+        [
+            "text" => "Väder API",
+            "url" => "weather-text",
+            "title" => "Hämta väder data",
+            "submenu" => [
+                "items" => [
+                    [
+                        "text" => "Vanligt svar",
+                        "url" => "weather-api",
+                        "title" => "Hämta väder data, svaret blir vanligt.",
+                    ],
+                    [
+                        "text" => "JSON svar",
+                        "url" => "weather2-api",
+                        "title" => "Hämta väder data, svaret blir i JSON.",
                     ],
                 ],
             ],
