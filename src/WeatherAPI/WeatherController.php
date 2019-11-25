@@ -85,9 +85,7 @@ class WeatherController implements ContainerInjectableInterface
         $searchReq = $request->getGet("searchReq") ?? "";
         $date = $request->getGet("date");
 
-        if ($request->getGet("fetch")) {
-            $this->model->getWeatherData($session, $searchReq, $date);
-        }
+        $this->model->getWeatherData($session, $searchReq, $date);
 
         return $response->redirect("weather-api/weather-data");
     }

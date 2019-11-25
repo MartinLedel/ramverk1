@@ -26,7 +26,7 @@ namespace Anax\View;
 <link rel="stylesheet" href="<?= url("css/leaflet.css") ?>">
 <?php if (isset($address["404"])) : ?>
         <p><?= $address["404"] ?></p>
-<?php else : ?>
+<?php elseif ($jsonData && $address) : ?>
 <p>
     <table>
         <tr class="first">
@@ -64,27 +64,27 @@ namespace Anax\View;
         <?php endforeach; ?>
     </table>
 </p>
-<?php if (isset($jsonData["previous"])) : ?>
-<p>
-    Vädret 30 dagar bakåt:<br>
-    <table>
-        <tr class="first">
-            <th>Datum</th>
-            <th>Prognos</th>
-            <th>Högsta temp</th>
-            <th>Lägsta temp</th>
-        </tr>
-        <?php foreach ($jsonData["previous"][0] as $row) : ?>
-        <tr>
-            <td><?= date('d M', $row[0]["time"]) ?></td>
-            <td><?= $row[0]["summary"] ?></td>
-            <td><?= round($row[0]["temperatureHigh"]) ?></td>
-            <td><?= round($row[0]["temperatureLow"]) ?></td>
-        </tr>
-        <?php endforeach; ?>
-    </table>
-</p>
-<?php endif; ?>
+    <?php if (isset($jsonData["previous"])) : ?>
+    <p>
+        Vädret 30 dagar bakåt:<br>
+        <table>
+            <tr class="first">
+                <th>Datum</th>
+                <th>Prognos</th>
+                <th>Högsta temp</th>
+                <th>Lägsta temp</th>
+            </tr>
+            <?php foreach ($jsonData["previous"][0] as $row) : ?>
+            <tr>
+                <td><?= date('d M', $row[0]["time"]) ?></td>
+                <td><?= $row[0]["summary"] ?></td>
+                <td><?= round($row[0]["temperatureHigh"]) ?></td>
+                <td><?= round($row[0]["temperatureLow"]) ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+    </p>
+    <?php endif ; ?>
 <div id="map" style="width: 800px; height: 450px;"></div>
 <script src="<?= url("js/leaflet.js") ?>"></script>
 <script type="text/javascript">

@@ -13,6 +13,9 @@ class weatherJSONModel
     protected $apikey2;
     protected $apikey3;
 
+    /*
+    * Sets the api keys from a file
+    */
     public function __construct()
     {
         $api_keys = require ANAX_INSTALL_PATH . "/config/api_keys.php";
@@ -21,6 +24,9 @@ class weatherJSONModel
         $this->apikey3 = $api_keys["geocode"];
     }
 
+    /*
+    * Using nominatim to geo search an adress
+    */
     public function geocode($address)
     {
         $adrsurl = urlencode($address);
@@ -41,7 +47,7 @@ class weatherJSONModel
             return [
                 "lat" => $api_result[0]['lat'],
                 "long" => $api_result[0]['lon'],
-                "city" => $api_result[0]["address"]["city"],
+                "city" => $api_result[0]["address"]["city"] ?? $api_result[0]["address"]["village"],
                 "region" => $api_result[0]["address"]["state"],
                 "country" => $api_result[0]["address"]["country"]
             ];
@@ -52,6 +58,9 @@ class weatherJSONModel
         ];
     }
 
+    /*
+    * Using ipstacks to geo search an IP adress
+    */
     public function ipCurl($ip)
     {
         $json = [];
@@ -67,21 +76,18 @@ class weatherJSONModel
         // Decode JSON response:
         $api_result = json_decode($json, true);
 
-        if ($api_result) {
-            return [
-                "lat" => $api_result["latitude"],
-                "long" => $api_result["longitude"],
-                "city" => $api_result["city"],
-                "region" => $api_result["region_name"],
-                "country" => $api_result["country_name"]
-            ];
-        }
-
         return [
-            "404" => "Error: Couldnt find anything with that search!"
+            "lat" => $api_result["latitude"],
+            "long" => $api_result["longitude"],
+            "city" => $api_result["city"] ?? $api_result["address"]["village"],
+            "region" => $api_result["region_name"],
+            "country" => $api_result["country_name"]
         ];
     }
 
+    /*
+    * Fetching weather
+    */
     public function fetchCurrentWeather($coords)
     {
         $json = [];
@@ -101,6 +107,9 @@ class weatherJSONModel
         return [$api_result];
     }
 
+    /*
+    * Fetching weather
+    */
     public function fetchPrevWeather($coords, $days)
     {
         $json = [];
@@ -112,6 +121,9 @@ class weatherJSONModel
         return [$json];
     }
 
+    /*
+    * Method for setting up multi curl
+    */
     public function multiCurl($coords, $days)
     {
         $urls = $this->getUrls($coords, $days);
@@ -135,6 +147,9 @@ class weatherJSONModel
         return $json;
     }
 
+    /*
+    * Method for getting all urls for the multi curl method
+    */
     private function getUrls($coords, $days) : array
     {
         $urls = [];
@@ -146,6 +161,9 @@ class weatherJSONModel
         return $urls;
     }
 
+    /*
+    * Method for converting time/date to correct format for darksky api
+    */
     public function getDayFormat($day)
     {
         $date = new \Datetime();
@@ -153,6 +171,9 @@ class weatherJSONModel
         return $date->format('U');
     }
 
+    /*
+    * Method for actually fetching the multi curls
+    */
     public function startMultiCurl($mCurl)
     {
         do {

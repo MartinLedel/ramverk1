@@ -4,9 +4,8 @@ APIet tar emot två argument: `searchReq` och `date`.
 
 För att hämta väder data måste något av dessa skickas med:
 
-* `Karlskrona` eller `Karlskrona, Sverige`
-* `135 77` som zip kod
-* `8.8.8.8` eller som ip adress
+* Ort, Stad, Land
+* IP adress, IPv4
 
 ```
 weather2-api/fetch?searchReq=Karlskrona&date=0&fetch=fetch
