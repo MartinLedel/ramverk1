@@ -26,7 +26,7 @@ class WeatherJSONController implements ContainerInjectableInterface
 
     public function initialize()
     {
-        $this->model = new weatherModel();
+        $this->model = new WeatherModel();
     }
     /**
      * JSON form
@@ -37,7 +37,7 @@ class WeatherJSONController implements ContainerInjectableInterface
         $page = $this->di->get("page");
         $weather = $this->di->get("weather");
         $message = $weather->welcomeMsg();
-        $title = "Väder API";;
+        $title = "Väder API";
         $data = [
         "message" => $message["message"],
         ];

@@ -49,5 +49,4 @@ class kmom01Model
 
         return $json;
     }
-
 }

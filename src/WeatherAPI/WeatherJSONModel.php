@@ -7,7 +7,7 @@ namespace Anax\WeatherAPI;
  *
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
-class weatherJSONModel
+class WeatherJSONModel
 {
     protected $apikey1;
     protected $apikey2;
@@ -47,9 +47,9 @@ class weatherJSONModel
             return [
                 "lat" => $api_result[0]['lat'],
                 "long" => $api_result[0]['lon'],
-                "city" => $api_result[0]["address"]["city"] ?? $api_result[0]["address"]["village"],
-                "region" => $api_result[0]["address"]["state"],
-                "country" => $api_result[0]["address"]["country"]
+                "city" => $api_result[0]["address"]["city"] ?? "",
+                "region" => $api_result[0]["address"]["state"] ?? "",
+                "country" => $api_result[0]["address"]["country"] ?? ""
             ];
         }
 
@@ -94,7 +94,7 @@ class weatherJSONModel
         $location = $coords["lat"] . ',' . $coords["long"];
 
         // Initialize CURL:
-        $ch = curl_init('https://api.darksky.net/forecast/'.$this->apikey2.'/'.$location.'?exclude=minutely,hourly,currently,alerts,flags&extend=daily&lang=sv&units=auto');
+        $ch = curl_init('https://api.darksky.net/forecast/'.$this->apikey2.'/'.$location.'?exclude=minutely,hourly,currently,alerts,flags&extend=daily&lang=sv&units=ca');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         // Store the data:

@@ -38,7 +38,7 @@ class WeatherController implements ContainerInjectableInterface
         $session = $this->di->get("session");
         $weather = $this->di->get("weather");
         $message = $weather->welcomeMsg();
-        $title = "Väder API";;
+        $title = "Väder API";
         $data = [
         "message" => $message["message"],
         ];

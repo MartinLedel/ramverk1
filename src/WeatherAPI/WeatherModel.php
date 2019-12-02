@@ -7,7 +7,7 @@ namespace Anax\WeatherAPI;
  *
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
-class weatherModel
+class WeatherModel
 {
     public $model;
 
@@ -16,7 +16,7 @@ class weatherModel
     */
     public function __construct()
     {
-        $this->model = new weatherJSONModel();
+        $this->model = new WeatherJSONModel();
     }
 
     /*
@@ -50,7 +50,7 @@ class weatherModel
         $json = [];
         if ($days == "0") {
             $json["current"] = $this->model->fetchCurrentWeather($coords);
-            $json["previous"] = "";
+            $json["previous"] = null;
         } elseif ($days == "30") {
             $json["current"] = $this->model->fetchCurrentWeather($coords);
             $json["previous"] = $this->model->fetchPrevWeather($coords, $days);

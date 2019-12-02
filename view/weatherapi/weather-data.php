@@ -56,8 +56,8 @@ namespace Anax\View;
         <tr>
             <td><?= date('d M', $row["time"]) ?></td>
             <td><?= $row["summary"] ?></td>
-            <td><?= round($row["temperatureHigh"]) ?></td>
-            <td><?= round($row["temperatureLow"]) ?></td>
+            <td><?= round($row["temperatureHigh"]) ?>&deg;</td>
+            <td><?= round($row["temperatureLow"]) ?>&deg;</td>
             <td id="lat"><?= $jsonData["current"][0]["latitude"] ?></td>
             <td id="lng"><?= $jsonData["current"][0]["longitude"] ?></td>
         </tr>
@@ -78,8 +78,8 @@ namespace Anax\View;
             <tr>
                 <td><?= date('d M', $row[0]["time"]) ?></td>
                 <td><?= $row[0]["summary"] ?></td>
-                <td><?= round($row[0]["temperatureHigh"]) ?></td>
-                <td><?= round($row[0]["temperatureLow"]) ?></td>
+                <td><?= round($row[0]["temperatureHigh"]) ?>&deg;</td>
+                <td><?= round($row[0]["temperatureLow"]) ?>&deg;</td>
             </tr>
             <?php endforeach; ?>
         </table>
