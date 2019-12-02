@@ -24,6 +24,9 @@ class WeatherController implements ContainerInjectableInterface
 
     public $model;
 
+    /*
+    * Get the model for easier access.
+    */
     public function initialize()
     {
         $this->model = new WeatherModel();
