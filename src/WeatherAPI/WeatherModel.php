@@ -27,18 +27,18 @@ class WeatherModel
         $json = null;
         if (filter_var($searchReq, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
             $coords = $this->model->ipCurl($searchReq);
+            $session->set("address", $coords);
             if (!isset($coords["404"])) {
                 $json = $this->fetchAll($coords, $days);
                 $session->set("jsonData", $json);
             }
-            $session->set("address", $coords);
-        } else {
+        } elseif (is_string($searchReq)) {
             $coords = $this->model->geocode($searchReq);
+            $session->set("address", $coords);
             if (!isset($coords["404"])) {
                 $json = $this->fetchAll($coords, $days);
                 $session->set("jsonData", $json);
             }
-            $session->set("address", $coords);
         }
     }
 

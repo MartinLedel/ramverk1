@@ -2,6 +2,9 @@
 
 namespace Anax\WeatherAPI;
 
+use DateTime;
+use DateInterval;
+
 /**
  * Showing off a standard class with methods and properties.
  *
@@ -18,10 +21,10 @@ class WeatherJSONModel
     */
     public function __construct()
     {
-        $api_keys = require ANAX_INSTALL_PATH . "/config/api_keys.php";
-        $this->apikey1 = $api_keys["ipstacks"];
-        $this->apikey2 = $api_keys["darksky"];
-        $this->apikey3 = $api_keys["geocode"];
+        $apiKeys = require ANAX_INSTALL_PATH . "/config/api_keys.php";
+        $this->apikey1 = $apiKeys["ipstacks"];
+        $this->apikey2 = $apiKeys["darksky"];
+        $this->apikey3 = $apiKeys["geocode"];
     }
 
     /*
@@ -41,15 +44,15 @@ class WeatherJSONModel
         curl_close($ch);
 
         // Decode JSON response:
-        $api_result = json_decode($json, true);
+        $apiResult = json_decode($json, true);
 
-        if ($api_result) {
+        if ($apiResult) {
             return [
-                "lat" => $api_result[0]['lat'],
-                "long" => $api_result[0]['lon'],
-                "city" => $api_result[0]["address"]["city"] ?? "",
-                "region" => $api_result[0]["address"]["state"] ?? "",
-                "country" => $api_result[0]["address"]["country"] ?? ""
+                "lat" => $apiResult[0]['lat'],
+                "long" => $apiResult[0]['lon'],
+                "city" => $apiResult[0]["address"]["city"] ?? "",
+                "region" => $apiResult[0]["address"]["state"] ?? "",
+                "country" => $apiResult[0]["address"]["country"] ?? ""
             ];
         }
 
@@ -61,12 +64,12 @@ class WeatherJSONModel
     /*
     * Using ipstacks to geo search an IP adress
     */
-    public function ipCurl($ip)
+    public function ipCurl($ipAdress)
     {
         $json = [];
 
         // Initialize CURL:
-        $ch = curl_init('http://api.ipstack.com/'. $ip . '?access_key=' . $this->apikey1 . '');
+        $ch = curl_init('http://api.ipstack.com/'. $ipAdress . '?access_key=' . $this->apikey1 . '');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         // Store the data:
@@ -74,14 +77,14 @@ class WeatherJSONModel
         curl_close($ch);
 
         // Decode JSON response:
-        $api_result = json_decode($json, true);
+        $apiResult = json_decode($json, true);
 
         return [
-            "lat" => $api_result["latitude"],
-            "long" => $api_result["longitude"],
-            "city" => $api_result["city"] ?? $api_result["address"]["village"],
-            "region" => $api_result["region_name"],
-            "country" => $api_result["country_name"]
+            "lat" => $apiResult["latitude"],
+            "long" => $apiResult["longitude"],
+            "city" => $apiResult["city"] ?? $apiResult["address"]["village"],
+            "region" => $apiResult["region_name"],
+            "country" => $apiResult["country_name"]
         ];
     }
 
@@ -102,9 +105,9 @@ class WeatherJSONModel
         curl_close($ch);
 
         // Decode JSON response:
-        $api_result = json_decode($json, true);
+        $apiResult = json_decode($json, true);
 
-        return [$api_result];
+        return [$apiResult];
     }
 
     /*
@@ -166,8 +169,8 @@ class WeatherJSONModel
     */
     public function getDayFormat($day)
     {
-        $date = new \Datetime();
-        $date->sub(new \DateInterval('P'. (intval($day) + 1) .'D'));
+        $date = new Datetime();
+        $date->sub(new DateInterval('P'. (intval($day) + 1) .'D'));
         return $date->format('U');
     }
 
