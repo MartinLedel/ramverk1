@@ -111,5 +111,10 @@ return [
                 ],
             ],
         ],
+        [
+            "text" => "Bok exempel",
+            "url" => "book",
+            "title" => "Bok exempel, lägg till, ta bort och editera böcker.",
+        ],
     ],
 ];

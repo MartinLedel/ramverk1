@@ -5639,6 +5639,10 @@ footer a {
   margin: 0 auto;
   padding-bottom: 0.5rem;
 }
+.book-cover {
+  width: 4em;
+  height: 6em;
+}
 /**
  * Base style to affect HTML elements on a general scale.
  */
