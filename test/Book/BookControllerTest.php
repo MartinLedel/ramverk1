@@ -10,11 +10,11 @@ use Anax\Database\Database;
  */
 class BookControllerTest extends TestCase
 {
-    // private $rows = [
-    //     [1, "Metro: Exodus", "Dmitry Glukhovsky", "MetroExodus.jpg"],
-    //     [2, "LOTR", "J.R.R Tolkien", "lotr.jpg"],
-    //     [3, "Leviathan Wakes", "James S. A. Corey", "lw.jpg"],
-    // ];
+    private $rows = [
+        [1, "Metro: Exodus", "Dmitry Glukhovsky", "MetroExodus.jpg"],
+        [2, "LOTR", "J.R.R Tolkien", "lotr.jpg"],
+        [3, "Leviathan Wakes", "James S. A. Corey", "lw.jpg"],
+    ];
     private $db;
     protected $controllerTest;
 
@@ -38,7 +38,8 @@ class BookControllerTest extends TestCase
         $this->controllerTest->setDI($this->di);
 
         // Setup the db
-        $this->db = $this->di->get("dbqb")->connect();
+        $this->db = $this->di->get("dbqb");
+        $this->db->connect();
 
         // Create a temp table
         $sql = <<<EOD
@@ -50,6 +51,15 @@ CREATE TABLE Book (
 );
 EOD;
         $this->db->execute($sql);
+
+        // Add row to table
+        $sql = <<<EOD
+INSERT INTO Book (id, title, author, image)
+VALUES
+    (?, ?, ?, ?)
+;
+EOD;
+        $this->db->execute($sql, $this->rows[0]);
     }
 
     /**
@@ -80,15 +90,6 @@ EOD;
         $request->setServer("REQUEST_METHOD", "POST");
         // Test the controller action
         $request->setPost("anax/htmlform-id", "anax/htmlform");
-        $request->setPost("Title", "Metro: Exodus");
-        $request->setPost("Author", "Dmitry Glukhovsky");
-        $request->setPost("Image", "MetroExodus.jpg");
-        $request->setPost("submit", "Create book");
-        $res = $this->controllerTest->createAction();
-        $this->assertInstanceOf("Anax\Response\Response", $res);
-        $this->assertInstanceOf("Anax\Response\ResponseUtility", $res);
-
-        $request->setPost("anax/htmlform-id", "anax/htmlform");
         $request->setPost("Title", "The Lord of the Rings");
         $request->setPost("Author", "J. R. R. Tolkien");
         $request->setPost("Image", "lotr.jpg");
@@ -115,6 +116,7 @@ EOD;
     {
         $request = $this->di->get("request");
         $request->setServer("REQUEST_METHOD", "POST");
+
         // Test the controller action
         $request->setPost("anax/htmlform-id", "Anax\Book\HTMLForm\DeleteForm");
         $request->setPost("select", "2");
